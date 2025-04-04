@@ -1,18 +1,15 @@
 
 import streamlit as st
 import openai
-import os
 
 st.set_page_config(page_title="🌍 Informe Ambiental del Campo", layout="centered")
 st.title("🌱 Informe Ambiental del Campo con ChatGPT")
 
-# Intentar obtener la API key desde variable de entorno
-api_key = os.getenv("OPENAI_API_KEY")
-
-if not api_key:
-    st.error("No se encontró la API Key. Definí la variable de entorno OPENAI_API_KEY.")
+# Obtener la API Key desde secrets (configurado en Streamlit Cloud)
+if "OPENAI_API_KEY" not in st.secrets:
+    st.error("No se encontró la API Key. Configurala en Settings > Secrets en Streamlit Cloud.")
 else:
-    openai.api_key = api_key
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
 
     st.subheader("📍 Seleccioná la ubicación del campo")
     direccion = st.text_input("Ingresá una dirección, localidad o nombre del campo:")
