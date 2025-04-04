@@ -1,14 +1,17 @@
 
 import streamlit as st
 import openai
+import os
 
 st.set_page_config(page_title="🌍 Informe Ambiental del Campo", layout="centered")
 st.title("🌱 Informe Ambiental del Campo con ChatGPT")
 
-st.subheader("🔑 Ingresá tu clave de OpenAI (se mantiene local)")
-api_key = st.text_input("API Key", type="password")
+# Intentar obtener la API key desde variable de entorno
+api_key = os.getenv("OPENAI_API_KEY")
 
-if api_key:
+if not api_key:
+    st.error("No se encontró la API Key. Definí la variable de entorno OPENAI_API_KEY.")
+else:
     openai.api_key = api_key
 
     st.subheader("📍 Seleccioná la ubicación del campo")
@@ -50,5 +53,3 @@ El informe debe ser corto, informativo y claro. Redactalo en español, como para
                     st.error(f"Error al consultar ChatGPT: {str(e)}")
         else:
             st.warning("Ingresá una dirección o localidad para continuar.")
-else:
-    st.info("Ingresá tu API Key de OpenAI para activar esta función.")
