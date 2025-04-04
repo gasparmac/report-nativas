@@ -34,7 +34,7 @@ El informe debe ser corto, informativo y claro. Redactalo en español, como para
             with st.spinner("Consultando a ChatGPT..."):
                 try:
                     response = openai.ChatCompletion.create(
-                        model="gpt-4",
+                        model="gpt-3.5-turbo",
                         messages=[
                             {"role": "system", "content": "Sos un asistente experto en agroecología y clima."},
                             {"role": "user", "content": prompt}
